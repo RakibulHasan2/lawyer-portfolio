@@ -1,43 +1,58 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Scale, Phone, Star, Quote, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { useState } from "react";
+import {
+  Scale,
+  Phone,
+  Star,
+  Quote,
+  ChevronLeft,
+  ChevronRight,
+  Calendar,
+} from "lucide-react";
 
-const Button = ({ 
-  children, 
-  variant = 'primary', 
-  size = 'md', 
-  className = '', 
+const Button = ({
+  children,
+  variant = "primary",
+  size = "md",
+  className = "",
   onClick,
-  href 
+  href,
+  disabled = false,
 }: {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "outline";
+  size?: "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
   href?: string;
+  disabled?: boolean;
 }) => {
-  const baseClasses = "inline-flex items-center justify-center font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
-  
+  const baseClasses =
+    "inline-flex items-center justify-center font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
+
   const variants = {
-    primary: "bg-gradient-to-r from-blue-800 to-blue-900 text-white hover:from-blue-900 hover:to-blue-800 shadow-lg hover:shadow-xl focus:ring-blue-500",
-    secondary: "bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600 shadow-lg hover:shadow-xl focus:ring-amber-500",
-    outline: "border-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white focus:ring-blue-500"
+    primary:
+      "bg-gradient-to-r from-blue-800 to-blue-900 text-white hover:from-blue-900 hover:to-blue-800 shadow-lg hover:shadow-xl focus:ring-blue-500",
+    secondary:
+      "bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600 shadow-lg hover:shadow-xl focus:ring-amber-500",
+    outline:
+      "border-2 border-blue-800 text-blue-800 hover:bg-blue-800 hover:text-white focus:ring-blue-500",
   };
-  
+
   const sizes = {
     sm: "px-4 py-2 text-sm rounded-md",
     md: "px-6 py-3 text-base rounded-lg",
-    lg: "px-8 py-4 text-lg rounded-xl"
+    lg: "px-8 py-4 text-lg rounded-xl",
   };
-  
-  const Component = href ? 'a' : 'button';
-  
+
+  const Component = href ? "a" : "button";
+
   return (
     <Component
       href={href}
       onClick={onClick}
+      disabled={disabled}
       className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {children}
@@ -45,30 +60,36 @@ const Button = ({
   );
 };
 
-const Card = ({ 
-  children, 
-  className = '', 
-  hover = false 
+const Card = ({
+  children,
+  className = "",
+  hover = false,
 }: {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
 }) => {
   return (
-    <div className={`bg-white rounded-xl shadow-lg ${hover ? 'hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1' : ''} ${className}`}>
+    <div
+      className={`bg-white rounded-xl shadow-lg ${
+        hover
+          ? "hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+          : ""
+      } ${className}`}
+    >
       {children}
     </div>
   );
 };
 
-const TestimonialCard = ({ 
-  name, 
-  rating, 
-  text, 
+const TestimonialCard = ({
+  name,
+  rating,
+  text,
   caseType,
   date,
   outcome,
-  location 
+  location,
 }: {
   name: string;
   rating: number;
@@ -82,12 +103,17 @@ const TestimonialCard = ({
     <div className="flex items-center justify-between mb-6">
       <div className="flex text-yellow-500">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} className={`w-5 h-5 ${i < rating ? 'fill-current' : ''}`} />
+          <Star
+            key={i}
+            className={`w-5 h-5 ${i < rating ? "fill-current" : ""}`}
+          />
         ))}
       </div>
       <Quote className="w-8 h-8 text-blue-200" />
     </div>
-    <p className="text-gray-700 mb-6 leading-relaxed text-lg italic">"{text}"</p>
+    <p className="text-gray-700 mb-6 leading-relaxed text-lg italic">
+      &ldquo;{text}&ldquo;
+    </p>
     <div className="border-t pt-6">
       <div className="flex justify-between items-start mb-4">
         <div>
@@ -114,7 +140,7 @@ const TestimonialCard = ({
 
 export default function Testimonials() {
   const [currentPage, setCurrentPage] = useState(0);
-  
+
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -123,7 +149,7 @@ export default function Testimonials() {
       caseType: "Felony Criminal Defense",
       date: "November 2024",
       outcome: "Charges Dismissed",
-      location: "Downtown District"
+      location: "Downtown District",
     },
     {
       name: "Michael Chen",
@@ -132,7 +158,7 @@ export default function Testimonials() {
       caseType: "DUI Defense",
       date: "October 2024",
       outcome: "Case Dismissed",
-      location: "Westside"
+      location: "Westside",
     },
     {
       name: "Lisa Rodriguez",
@@ -141,7 +167,7 @@ export default function Testimonials() {
       caseType: "Drug Possession",
       date: "September 2024",
       outcome: "Reduced to Misdemeanor",
-      location: "East District"
+      location: "East District",
     },
     {
       name: "Robert Thompson",
@@ -150,7 +176,7 @@ export default function Testimonials() {
       caseType: "White Collar Crime",
       date: "August 2024",
       outcome: "Charges Reduced",
-      location: "Business District"
+      location: "Business District",
     },
     {
       name: "Maria Santos",
@@ -159,7 +185,7 @@ export default function Testimonials() {
       caseType: "Domestic Violence",
       date: "July 2024",
       outcome: "Acquitted at Trial",
-      location: "South District"
+      location: "South District",
     },
     {
       name: "David Kim",
@@ -168,7 +194,7 @@ export default function Testimonials() {
       caseType: "Assault Defense",
       date: "June 2024",
       outcome: "Plea Agreement",
-      location: "North District"
+      location: "North District",
     },
     {
       name: "Jennifer Wilson",
@@ -177,7 +203,7 @@ export default function Testimonials() {
       caseType: "Juvenile Defense",
       date: "May 2024",
       outcome: "Diversion Program",
-      location: "Suburban District"
+      location: "Suburban District",
     },
     {
       name: "Thomas Anderson",
@@ -186,7 +212,7 @@ export default function Testimonials() {
       caseType: "Emergency Defense",
       date: "April 2024",
       outcome: "Charges Dismissed",
-      location: "Central District"
+      location: "Central District",
     },
     {
       name: "Amanda Foster",
@@ -195,13 +221,13 @@ export default function Testimonials() {
       caseType: "Repeat DUI Offense",
       date: "March 2024",
       outcome: "Case Dismissed",
-      location: "Highway District"
-    }
+      location: "Highway District",
+    },
   ];
 
   const testimonialsPerPage = 6;
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
-  
+
   const getCurrentTestimonials = () => {
     const start = currentPage * testimonialsPerPage;
     const end = start + testimonialsPerPage;
@@ -225,19 +251,48 @@ export default function Testimonials() {
             <div className="flex items-center">
               <Scale className="w-8 h-8 text-blue-800 mr-3" />
               <div>
-                <h1 className="text-xl font-bold text-gray-900">John Mitchell</h1>
-                <p className="text-sm text-gray-600">Criminal Defense Attorney</p>
+                <h1 className="text-xl font-bold text-gray-900">
+                  John Mitchell
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Criminal Defense Attorney
+                </p>
               </div>
             </div>
             <nav className="hidden md:flex space-x-8">
-              <a href="/" className="text-gray-700 hover:text-blue-800 transition-colors">Home</a>
-              <a href="/about" className="text-gray-700 hover:text-blue-800 transition-colors">About</a>
-              <a href="/practice-areas" className="text-gray-700 hover:text-blue-800 transition-colors">Practice Areas</a>
-              <a href="/testimonials" className="text-blue-800 font-semibold">Testimonials</a>
-              <a href="/contact" className="text-gray-700 hover:text-blue-800 transition-colors">Contact</a>
+              <a
+                href="/"
+                className="text-gray-700 hover:text-blue-800 transition-colors"
+              >
+                Home
+              </a>
+              <a
+                href="/about"
+                className="text-gray-700 hover:text-blue-800 transition-colors"
+              >
+                About
+              </a>
+              <a
+                href="/practice-areas"
+                className="text-gray-700 hover:text-blue-800 transition-colors"
+              >
+                Practice Areas
+              </a>
+              <a href="/testimonials" className="text-blue-800 font-semibold">
+                Testimonials
+              </a>
+              <a
+                href="/contact"
+                className="text-gray-700 hover:text-blue-800 transition-colors"
+              >
+                Contact
+              </a>
             </nav>
             <div className="flex items-center space-x-4">
-              <a href="tel:+1234567890" className="text-blue-800 hover:text-blue-900 transition-colors">
+              <a
+                href="tel:+1234567890"
+                className="text-blue-800 hover:text-blue-900 transition-colors"
+              >
                 <Phone className="w-5 h-5" />
               </a>
               <Button size="sm" href="/book-consultation">
@@ -251,12 +306,11 @@ export default function Testimonials() {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold mb-6">
-            Client Testimonials
-          </h1>
+          <h1 className="text-5xl font-bold mb-6">Client Testimonials</h1>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Real stories from real clients who trusted us with their most important legal matters. 
-            See why we have a 95% success rate and hundreds of satisfied clients.
+            Real stories from real clients who trusted us with their most
+            important legal matters. See why we have a 95% success rate and
+            hundreds of satisfied clients.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" href="/book-consultation">
@@ -303,16 +357,17 @@ export default function Testimonials() {
               What Our Clients Say
             </h2>
             <p className="text-xl text-gray-600">
-              Authentic reviews from clients who experienced our legal services firsthand
+              Authentic reviews from clients who experienced our legal services
+              firsthand
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {getCurrentTestimonials().map((testimonial, index) => (
               <TestimonialCard key={index} {...testimonial} />
             ))}
           </div>
-          
+
           {/* Pagination */}
           <div className="flex justify-center items-center space-x-4">
             <Button
@@ -324,7 +379,7 @@ export default function Testimonials() {
               <ChevronLeft className="w-4 h-4 mr-1" />
               Previous
             </Button>
-            
+
             <div className="flex space-x-2">
               {[...Array(totalPages)].map((_, index) => (
                 <button
@@ -332,15 +387,15 @@ export default function Testimonials() {
                   onClick={() => setCurrentPage(index)}
                   className={`w-10 h-10 rounded-full font-medium transition-colors ${
                     index === currentPage
-                      ? 'bg-blue-800 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      ? "bg-blue-800 text-white"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   }`}
                 >
                   {index + 1}
                 </button>
               ))}
             </div>
-            
+
             <Button
               variant="outline"
               size="sm"
@@ -367,34 +422,46 @@ export default function Testimonials() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="p-6 text-center">
-              <div className="text-2xl font-bold text-blue-800 mb-2">Criminal Defense</div>
+              <div className="text-2xl font-bold text-blue-800 mb-2">
+                Criminal Defense
+              </div>
               <div className="text-gray-600 mb-4">200+ Cases Won</div>
               <div className="flex justify-center text-yellow-500 mb-2">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <p className="text-sm text-gray-600">Felonies, misdemeanors, federal charges</p>
+              <p className="text-sm text-gray-600">
+                Felonies, misdemeanors, federal charges
+              </p>
             </Card>
             <Card className="p-6 text-center">
-              <div className="text-2xl font-bold text-blue-800 mb-2">DUI Defense</div>
+              <div className="text-2xl font-bold text-blue-800 mb-2">
+                DUI Defense
+              </div>
               <div className="text-gray-600 mb-4">150+ Cases Won</div>
               <div className="flex justify-center text-yellow-500 mb-2">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <p className="text-sm text-gray-600">First-time and repeat offenses</p>
+              <p className="text-sm text-gray-600">
+                First-time and repeat offenses
+              </p>
             </Card>
             <Card className="p-6 text-center">
-              <div className="text-2xl font-bold text-blue-800 mb-2">Drug Crimes</div>
+              <div className="text-2xl font-bold text-blue-800 mb-2">
+                Drug Crimes
+              </div>
               <div className="text-gray-600 mb-4">100+ Cases Won</div>
               <div className="flex justify-center text-yellow-500 mb-2">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <p className="text-sm text-gray-600">Possession, distribution, trafficking</p>
+              <p className="text-sm text-gray-600">
+                Possession, distribution, trafficking
+              </p>
             </Card>
           </div>
         </div>
@@ -407,8 +474,9 @@ export default function Testimonials() {
             Ready to Add Your Success Story?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-            Join hundreds of satisfied clients who trusted us with their most important legal matters. 
-            Get the experienced representation you deserve.
+            Join hundreds of satisfied clients who trusted us with their most
+            important legal matters. Get the experienced representation you
+            deserve.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" variant="secondary" href="/book-consultation">
@@ -436,26 +504,87 @@ export default function Testimonials() {
                 </div>
               </div>
               <p className="text-gray-400 leading-relaxed">
-                Defending your rights with integrity, experience, and unwavering commitment to justice.
+                Defending your rights with integrity, experience, and unwavering
+                commitment to justice.
               </p>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
               <ul className="space-y-2">
-                <li><a href="/" className="text-gray-400 hover:text-white transition-colors">Home</a></li>
-                <li><a href="/about" className="text-gray-400 hover:text-white transition-colors">About</a></li>
-                <li><a href="/practice-areas" className="text-gray-400 hover:text-white transition-colors">Practice Areas</a></li>
-                <li><a href="/testimonials" className="text-white">Testimonials</a></li>
-                <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                <li>
+                  <a
+                    href="/"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/about"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/practice-areas"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Practice Areas
+                  </a>
+                </li>
+                <li>
+                  <a href="/testimonials" className="text-white">
+                    Testimonials
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/contact"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="text-lg font-semibold mb-4">Services</h4>
               <ul className="space-y-2">
-                <li><a href="/practice-areas#criminal-defense" className="text-gray-400 hover:text-white transition-colors">Criminal Defense</a></li>
-                <li><a href="/practice-areas#dui-defense" className="text-gray-400 hover:text-white transition-colors">DUI Defense</a></li>
-                <li><a href="/practice-areas#drug-crimes" className="text-gray-400 hover:text-white transition-colors">Drug Crimes</a></li>
-                <li><a href="/book-consultation" className="text-gray-400 hover:text-white transition-colors">Free Consultation</a></li>
+                <li>
+                  <a
+                    href="/practice-areas#criminal-defense"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Criminal Defense
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/practice-areas#dui-defense"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    DUI Defense
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/practice-areas#drug-crimes"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Drug Crimes
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/book-consultation"
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    Free Consultation
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
@@ -467,14 +596,17 @@ export default function Testimonials() {
                 </div>
                 <div className="flex items-center">
                   <Scale className="w-4 h-4 mr-3 text-blue-400" />
-                  <span className="text-gray-400">john@mitchelldefense.com</span>
+                  <span className="text-gray-400">
+                    john@mitchelldefense.com
+                  </span>
                 </div>
               </div>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              © 2024 John Mitchell, Criminal Defense Attorney. All rights reserved.
+              © 2024 John Mitchell, Criminal Defense Attorney. All rights
+              reserved.
             </p>
           </div>
         </div>
